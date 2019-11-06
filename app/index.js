@@ -8,7 +8,7 @@ window.onload = () => {
     });
 };
 
-const URL = 'http://www.mrsoft.by/data.json';
+const URL = 'https://www.mrsoft.by/data.json';
 
 let isRegistr = false;
 
