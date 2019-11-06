@@ -1,5 +1,6 @@
 const NAMES = {
-    URL: 'https://cors-anywhere.herokuapp.com/https://www.mrsoft.by/data.json',
+    URL: 'https://www.mrsoft.by/data.json',
+    PROXY: 'https://cors-anywhere.herokuapp.com/',
 };
 
 export default  NAMES;

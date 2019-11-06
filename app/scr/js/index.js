@@ -8,8 +8,7 @@ let localArr = [];
 let isCaseSensitive = false;
 
 window.onload = async () => {
-    localArr = await request(NAMES.URL);
-    console.log(localArr);
+    localArr = await request(NAMES.PROXY + NAMES.URL);
 };
 
 function start() {
