@@ -17,18 +17,20 @@ const input = createAppend('input', 'text-input', wrapper);
 const label = createAppend('label', 'check-label', wrapper);
 const checkbox = createAppend('input', 'check-box', label,'', 'checkbox');
 const box = createAppend('span', 'check-span', label);
+const sign = createAppend('span', 'sign-span', label);
+    sign.innerText = 'Сase sensitive';
 const lengthFilter = createAppend('button','btn', wrapper);
     lengthFilter.innerText = 'Filter by length';
 const stringFilter = createAppend('button', 'btn', wrapper);
     stringFilter.innerText = 'Filter by string';
 const output = createAppend('div', 'text-output', document.body);
 
-checkbox.addEventListener('click', (el) => {
+checkbox.addEventListener('click', () => {
     clearOutput();
     isRegistr = !isRegistr;
 });
 
-input.addEventListener('input', (els) => {
+input.addEventListener('input', () => {
     clearOutput();
 });
 
@@ -37,7 +39,7 @@ output.addEventListener('click', (el) => {
     return input.value = el.target.textContent;
 });
 
-lengthFilter.addEventListener('click', (el) => {
+lengthFilter.addEventListener('click', () => {
     let num = Number(input.value);
 
     if (num < 1 || isNaN(num) === true || num > 25) {
@@ -54,7 +56,7 @@ lengthFilter.addEventListener('click', (el) => {
     }
 });
 
-stringFilter.addEventListener('click', (el) => {
+stringFilter.addEventListener('click', () => {
     let str = input.value;
     let myArr = [];
 
