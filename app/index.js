@@ -1,6 +1,11 @@
-// import createAppend from "./tools.js";
+import * as dom from "./scr/js/dom-elements"
+import createAndAppendElements from "./scr/js/create-dom-elements";
+import request from "./scr/js/send-request";
+import clearOutput from "./scr/js/clear-putput";
 
 let localArr = [];
+const URL = 'https://www.mrsoft.by/data.json';
+let isCaseSensitive = false;
 
 window.onload = () => {
     request(URL).then(res => {
@@ -8,39 +13,22 @@ window.onload = () => {
     });
 };
 
-const URL = 'https://www.mrsoft.by/data.json';
-
-let isRegistr = false;
-
-const wrapper = createAppend('div', 'wrapper', document.body);
-const input = createAppend('input', 'text-input', wrapper);
-const label = createAppend('label', 'check-label', wrapper);
-const checkbox = createAppend('input', 'check-box', label,'', 'checkbox');
-const box = createAppend('span', 'check-span', label);
-const sign = createAppend('span', 'sign-span', label);
-    sign.innerText = 'Сase sensitive';
-const lengthFilter = createAppend('button','btn', wrapper);
-    lengthFilter.innerText = 'Filter by length';
-const stringFilter = createAppend('button', 'btn', wrapper);
-    stringFilter.innerText = 'Filter by string';
-const output = createAppend('div', 'text-output', document.body);
-
-checkbox.addEventListener('click', () => {
+dom.checkbox.addEventListener('click', () => {
     clearOutput();
-    isRegistr = !isRegistr;
+    isCaseSensitive = !isCaseSensitive;
 });
 
-input.addEventListener('input', () => {
+dom.input.addEventListener('input', () => {
     clearOutput();
 });
 
-output.addEventListener('click', (el) => {
+dom.output.addEventListener('click', (el) => {
     clearOutput();
-    return input.value = el.target.textContent;
+    return dom.input.value = el.target.textContent;
 });
 
-lengthFilter.addEventListener('click', () => {
-    let num = Number(input.value);
+dom.lengthFilter.addEventListener('click', () => {
+    let num = Number(dom.input.value);
 
     if (num < 1 || isNaN(num) === true || num > 25) {
         return false;
@@ -50,20 +38,20 @@ lengthFilter.addEventListener('click', () => {
         });
 
         myArr.map(el => {
-            createAppend('div', 'result-item', output, el);
+            createAndAppendElements('div', 'result-item', dom.output, el);
         });
         input.style.borderRadius = '10px 10px 0 0';
     }
 });
 
-stringFilter.addEventListener('click', () => {
-    let str = input.value;
+dom.stringFilter.addEventListener('click', () => {
+    let str = dom.input.value;
     let myArr = [];
 
     if (isNaN(Number(str)) === false || str.length < 1) {
         return false;
     } else {
-        if (!isRegistr) {
+        if (!isCaseSensitive) {
             myArr = localArr.filter(el => {
                 return el.toLowerCase().includes(str.toLowerCase());
             });
@@ -76,48 +64,8 @@ stringFilter.addEventListener('click', () => {
             return false;
         }
         myArr.map(el => {
-            createAppend('div', 'result-item', output, el);
+            createAndAppendElements('div', 'result-item', dom.output, el);
         });
-        input.style.borderRadius = '10px 10px 0 0';
-}});
-
-async function request(url) {
-    let req = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-    });
-    if (req.ok) {
-        return await req.json();
-    } else {
-        console.log('Something goes wrong!');
+        dom.input.style.borderRadius = '10px 10px 0 0';
     }
-}
-
-function createAppend(tag, classname, wrapper, text, type) {
-    const arg = Array.from(arguments).length;
-    const temp = document.createElement(tag);
-    temp.classList.add(classname);
-
-    switch (arg) {
-        case 2:
-            return temp;
-        case 3:
-            return wrapper.appendChild(temp);
-        case 4:
-            temp.innerText = text;
-            return wrapper.appendChild(temp);
-        case 5:
-            temp.type = type;
-            temp.innerText = text;
-            return wrapper.appendChild(temp);
-        default:
-            return false;
-    }
-}
-
-function clearOutput() {
-    while(output.firstChild) {
-        output.removeChild(output.firstChild);
-    }
-    input.style.borderRadius = '10px';
-}
+});
