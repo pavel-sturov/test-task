@@ -1,13 +1,12 @@
-async function request(url) {
-    let req = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-    });
-    if (req.ok) {
-        return await req.json();
-    } else {
-        console.log('Something goes wrong!');
-    }
+function request(url) {
+    return fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .then((data) => data.data)
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 export default request;

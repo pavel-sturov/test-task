@@ -2,7 +2,7 @@
   "name": "test-task",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "App.js",
   "scripts": {
     "build": "webpack -p",
     "watch": "webpack --watch",
