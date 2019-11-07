@@ -3,23 +3,27 @@
 }
 
 .wrapper {
-    width: max-content;
-    margin-top: 100px;
-    margin-left: 100px;
     display: flex;
+    position: relative;
+    margin: 100px auto;
+    width: max-content;
 }
 
 .text-input {
     width: 400px;
     height: 40px;
+    font-family: 'Montserrat', sans-serif;
     border-radius: 5px;
     border: 0;
     outline: none;
     background-color: #55514c;
     font-size: 20px;
     color: white;
-    font-family: 'Montserrat', sans-serif;
     padding-left: 20px;
+}
+
+.text-input.with-output {
+    border-radius: 5px 5px 0 0 ;
 }
 
 .text-input:focus {
@@ -39,11 +43,11 @@
     cursor: pointer;
 }
 
-.btn:hover{
+.btn:hover {
     background-color: #bb2929;
 }
 
-.btn:active{
+.btn:active {
     background-color: brown;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
 }
@@ -53,13 +57,12 @@
 }
 
 .check-label {
-    display: inline-block;
-    margin: 0;
-    cursor: pointer;
-    color: #55798f;
     position: relative;
+    margin: 0;
     top: 2px;
     left: 32px;
+    cursor: pointer;
+    color: #55798f;
 }
 
 .check-box:checked + .check-span::before {
@@ -70,23 +73,18 @@
 
 .check-span::before {
     content: "\f096";
-    font-family: "FontAwesome", sans-serif;
-    font-weight: normal;
-    font-style: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    width: 25px;
-    display: inline-block;
-    font-size: 20px;
     position: relative;
+    display: inline-block;
+    width: 25px;
     left: 30px;
+    font-family: "FontAwesome", sans-serif;
+    font-size: 20px;
 }
 
 .sign-span {
     position: relative;
-    left: -40px;
     top: 15px;
+    left: -40px;
     font-size: 15px;
 }
 
@@ -95,24 +93,20 @@
 }
 
 .text-output {
-    width: 420px;
+    position: absolute;
+    width: 421px;
     max-height: 600px;
-    margin-left: 100px;
-    overflow: auto;
+    top: 42px;
+    left: 0;
     border-radius: 0 0 5px 5px;
     font-size: 23px;
+    overflow: auto;
     box-shadow: 0 2px 7px 2px #00000059;
     cursor: pointer;
 }
 
 .result-item {
-    box-sizing: border-box;
-    margin: 10px 0;
-    padding: 5px;
-}
-
-.result-item:nth-child(1) {
-    margin-top: 0;
+    padding: 5px 10px;
 }
 
 .result-item:hover {

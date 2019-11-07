@@ -1,23 +1,18 @@
-function createAndAppendElements(tag, classname, wrapper, text, type) {
-    const arg = Array.from(arguments).length;
-    const temp = document.createElement(tag);
-    temp.classList.add(classname);
+function createAndAppendElements({ tag, classname, parent, text, type }) {
+    const newElement = document.createElement(tag);
 
-    switch (arg) {
-        case 2:
-            return temp;
-        case 3:
-            return wrapper.appendChild(temp);
-        case 4:
-            temp.innerText = text;
-            return wrapper.appendChild(temp);
-        case 5:
-            temp.type = type;
-            temp.innerText = text;
-            return wrapper.appendChild(temp);
-        default:
-            return false;
+    if (classname) {
+        newElement.classList.add(classname);
     }
+    if (parent) {
+        parent.appendChild(newElement);
+    }
+    if (text) {
+        newElement.innerText = text;
+    }
+    if (type) {
+        newElement.type = type;
+    }
+    return newElement;
 }
-
 export default createAndAppendElements;
