@@ -1,8 +1,10 @@
 import { output, input } from "./dom-elements";
 
-export default function clearOutput() {
+function clearOutput() {
     while(output.firstChild) {
         output.removeChild(output.firstChild);
     }
-    input.style.borderRadius = '5px';
+    input.classList.remove('with-output');
 }
+
+export default clearOutput;

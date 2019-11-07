@@ -2,13 +2,13 @@ import { input, checkbox, lengthFilter, stringFilter, output } from "./dom-eleme
 import createAndAppendElements from "./create-dom-elements";
 import request from "./send-request";
 import clearOutput from "./clear-output";
-import NAMES from "./constants";
+import URL from "./constants";
 
-let localArr = [];
+let data = [];
 let isCaseSensitive = false;
 
 window.onload = async () => {
-    localArr = await request(NAMES.PROXY + NAMES.URL);
+    data = await request(URL.PROXY + URL.DATA);
 };
 
 function start() {
@@ -23,49 +23,46 @@ function start() {
 
     output.addEventListener('click', (el) => {
         clearOutput();
-        return input.value = el.target.textContent;
+        input.value = el.target.textContent;
     });
 
     lengthFilter.addEventListener('click', () => {
-        let num = Number(input.value);
+        const num = Number(input.value);
 
-        if (num < 1 || isNaN(num) === true || num > 25) {
+        if (num < 1 || isNaN(num) || num > 25) {
             return false;
-        } else {
-            let myArr = localArr.filter(el => {
-                return el.length >= num;
-            });
+        }
 
-            myArr.map(el => {
-                createAndAppendElements('div', 'result-item', output, el);
-            });
-            input.style.borderRadius = '5px 5px 0 0';
+        const filteredData = data.filter(el => el.length >= num);
+
+        filteredData.map(el => {
+            createAndAppendElements({ tag: 'div', classname: 'result-item', parent: output, text: el });
+        });
+        if (filteredData.length) {
+            input.classList.add('with-output');
         }
     });
 
     stringFilter.addEventListener('click', () => {
         let str = input.value;
-        let myArr = [];
+        let filteredData = [];
 
-        if (isNaN(Number(str)) === false || str.length < 1) {
+        if (!isNaN(Number(str)) || str.length < 1) {
             return false;
+        }
+
+        if (!isCaseSensitive) {
+            filteredData = data.filter(el => el.toLowerCase().includes(str.toLowerCase()));
         } else {
-            if (!isCaseSensitive) {
-                myArr = localArr.filter(el => {
-                    return el.toLowerCase().includes(str.toLowerCase());
-                });
-            } else {
-                myArr = localArr.filter(el => {
-                    return el.includes(str);
-                });
-            }
-            if (myArr.length === 0) {
-                return false;
-            }
-            myArr.map(el => {
-                createAndAppendElements('div', 'result-item', output, el);
-            });
-            input.style.borderRadius = '5px 5px 0 0';
+            filteredData = data.filter(el => el.includes(str));
+        }
+
+        filteredData.map(el => {
+            createAndAppendElements({ tag: 'div', classname: 'result-item', parent: output, text: el });
+        });
+
+        if (filteredData.length) {
+            input.classList.add('with-output');
         }
     });
 }
